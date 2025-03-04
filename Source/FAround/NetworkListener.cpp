@@ -43,19 +43,21 @@ void ANetworkListener::Tick(float DeltaTime)
 void ANetworkListener::ListenForConnections() {
     TSharedRef remoteAddress = ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM)->CreateInternetAddr();
     bool pending;
-    listenSocket->HasPendingConnection(pending);
-    if (pending) {
-        // Destroy old
-        if (connectionSocket) {
-            connectionSocket->Close();
-            ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM)->DestroySocket(connectionSocket);
+    do {
+        listenSocket->HasPendingConnection(pending);
+        if (pending) {
+            // Destroy old
+            if (connectionSocket) {
+                connectionSocket->Close();
+                ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM)->DestroySocket(connectionSocket);
+            }
+            connectionSocket = listenSocket->Accept(*remoteAddress, TEXT("Listener socket received connection"));
+            UE_LOG(LogTemp, Warning, TEXT("Connection received"));
+            if (connectionSocket != NULL) {
+                remoteAddressForConnection = FIPv4Endpoint(remoteAddress);
+            }
         }
-        connectionSocket = listenSocket->Accept(*remoteAddress, TEXT("Listener socket received connection"));
-        UE_LOG(LogTemp, Warning, TEXT("Connection received"));
-        if (connectionSocket != NULL) {
-            remoteAddressForConnection = FIPv4Endpoint(remoteAddress);
-        }
-    }
+    } while (pending);
 }
 
 void ANetworkListener::HandleConnectedSocket() {
@@ -68,9 +70,7 @@ void ANetworkListener::HandleConnectedSocket() {
         receivedData.Init(0, dataSize);
         int32 read = 0;
         connectionSocket->Recv(receivedData.GetData(), receivedData.Num(), read);
-        char data = receivedData[0];
-        if (data == 65) {
-            UE_LOG(LogTemp, Warning, TEXT("A press from DS"));
-        }
+        uint8 data = receivedData[0];
+        OnReceivedData.Broadcast(data);
     }
 }

@@ -9,6 +9,8 @@
 #include "SocketSubsystem.h"
 #include "NetworkListener.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FReceivedData, uint8, Data);
+
 UCLASS()
 class FAROUND_API ANetworkListener : public AActor
 {
@@ -28,6 +30,8 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+	UPROPERTY(BlueprintAssignable, Category = "Custom")
+	FReceivedData OnReceivedData;
 
 protected:
 	FSocket* listenSocket;
