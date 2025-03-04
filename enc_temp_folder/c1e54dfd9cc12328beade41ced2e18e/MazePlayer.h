@@ -10,7 +10,6 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "Camera/CameraComponent.h"
-#include "PuzzleElement.h"
 #include "MazePlayer.generated.h"
 
 UCLASS()
