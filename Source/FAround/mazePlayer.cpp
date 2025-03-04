@@ -2,6 +2,7 @@
 
 
 #include "MazePlayer.h"
+#include "Logging/LogMacros.h"
 
 // Sets default values
 AMazePlayer::AMazePlayer()
@@ -72,10 +73,15 @@ void AMazePlayer::Interact(const FInputActionValue& Value)
 
 	bool SuccessfulHit = false;
 
-	//if (GetWorld()->LineTraceSingleByChannel(hit, StartPoint, EndPoint, ECC_Visibility, Parameters))
-	//{
-		DrawDebugLine(GetWorld(),StartPoint,EndPoint,FColor::Red,true,-1.0f,0,5.f);
-	//}
+	DrawDebugLine(GetWorld(), StartPoint, EndPoint, FColor::Red, true, -1.0f, 0, 5.f);
+
+	if (GetWorld()->LineTraceSingleByChannel(hit, StartPoint, EndPoint, ECC_Visibility, Parameters))
+	{
+		if (hit.GetActor())
+		{
+			UE_LOG(LogTemp, Warning, TEXT("Hit"));
+		}
+	}
 }
 
 // Called every frame
