@@ -1,13 +1,16 @@
 {
 	"FileVersion": 3,
-	"EngineAssociation": "{C58BB74A-408F-0EF3-6C5F-40A882DD6660}",
+	"EngineAssociation": "{60CACF17-4BE2-A732-2432-1E80029F9D4B}",
 	"Category": "",
 	"Description": "",
 	"Modules": [
 		{
 			"Name": "FAround",
 			"Type": "Runtime",
-			"LoadingPhase": "Default"
+			"LoadingPhase": "Default",
+			"AdditionalDependencies": [
+				"Engine"
+			]
 		}
 	],
 	"Plugins": [
