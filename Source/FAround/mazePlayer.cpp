@@ -56,6 +56,28 @@ void AMazePlayer::JumpFunc(const FInputActionValue& Value)
 	ACharacter::Jump();
 }
 
+void AMazePlayer::Interact(const FInputActionValue& Value)
+{
+	const bool interactPressed = Value.Get<bool>();
+
+	FVector ForwardVector = camera->GetForwardVector();
+
+	FVector StartPoint = camera->GetComponentLocation();
+
+	FVector EndPoint = StartPoint + (ForwardVector * interactionRange);
+
+	FCollisionQueryParams Parameters;
+
+	FHitResult hit;
+
+	bool SuccessfulHit = false;
+
+	//if (GetWorld()->LineTraceSingleByChannel(hit, StartPoint, EndPoint, ECC_Visibility, Parameters))
+	//{
+		DrawDebugLine(GetWorld(),StartPoint,EndPoint,FColor::Red,true,-1.0f,0,5.f);
+	//}
+}
+
 // Called every frame
 void AMazePlayer::Tick(float DeltaTime)
 {
@@ -72,6 +94,7 @@ void AMazePlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 		EnhancedInputComponenet->BindAction(moveIA, ETriggerEvent::Triggered, this, &AMazePlayer::Move);
 		EnhancedInputComponenet->BindAction(lookIA, ETriggerEvent::Triggered, this, &AMazePlayer::Look);
 		EnhancedInputComponenet->BindAction(jumpIA, ETriggerEvent::Started, this, &AMazePlayer::JumpFunc);
+		EnhancedInputComponenet->BindAction(interactIA, ETriggerEvent::Started, this, &AMazePlayer::Interact);
 	}
 }
 

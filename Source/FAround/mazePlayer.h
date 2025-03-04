@@ -36,6 +36,7 @@ public:
 	void Move(const FInputActionValue& Value);
 	void Look(const FInputActionValue& Value);
 	void JumpFunc(const FInputActionValue& Value);
+	void Interact(const FInputActionValue& Value);
 
 	// --- Input Actions ---
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -48,11 +49,18 @@ public:
 	UInputAction* jumpIA;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UInputAction* interactIA;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UInputMappingContext* inputMappingContext;
 
 	// --- Camera ---
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UCameraComponent* camera;
+
+	//Interaction Range
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float interactionRange = 200.f;
 
 };
