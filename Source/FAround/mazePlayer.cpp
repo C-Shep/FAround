@@ -4,6 +4,7 @@
 #include "MazePlayer.h"
 #include "PuzzleTrigger.h"
 #include "PuzzleElement.h"
+#include "Kismet/GameplayStatics.h"
 #include "Logging/LogMacros.h"
 
 // Sets default values
@@ -17,6 +18,9 @@ AMazePlayer::AMazePlayer()
 	camera->SetupAttachment(RootComponent);
 	camera->SetRelativeLocation(FVector(0.f, 0.f, 50.f)); // Position the camera
 	camera->bUsePawnControlRotation = true;
+
+	interactionRange = 200.f;
+	playerHealth = 100.f;
 }
 
 // Called when the game starts or when spawned
@@ -57,6 +61,8 @@ void AMazePlayer::JumpFunc(const FInputActionValue& Value)
 	const bool jumpPressed = Value.Get<bool>();
 
 	ACharacter::Jump();
+
+	TakeDamage(10);
 }
 
 void AMazePlayer::Interact(const FInputActionValue& Value)
@@ -80,8 +86,6 @@ void AMazePlayer::Interact(const FInputActionValue& Value)
 	//Temporary Interaction Code for Testing
 	if (GetWorld()->LineTraceSingleByChannel(hit, StartPoint, EndPoint, ECC_Visibility, Parameters))
 	{
-		
-
 		AActor* hitActor = hit.GetActor();
 
 		//Door Interaction
@@ -98,6 +102,19 @@ void AMazePlayer::Interact(const FInputActionValue& Value)
 		{
 			Cast<APuzzleTrigger>(hitActor)->Trigger();
 		}
+	}
+}
+
+//Player take damage function
+void AMazePlayer::TakeDamage(const float damage)
+{
+	//reduce health by damage
+	playerHealth -= damage;
+
+	//if hp is less than or is 0, restart
+	if (playerHealth <= 0.f)
+	{
+		UGameplayStatics::OpenLevel(this,FName(*GetWorld()->GetName()),false);
 	}
 }
 

@@ -17,6 +17,8 @@ ACollideDetector::ACollideDetector()
 	//Finish collision box setup
 	collisionBox->SetupAttachment(RootComponent);
 	collisionBox->SetRelativeLocation(FVector(0.0f, 0.0f, 0.0f));
+
+	touchingCorrect = false;
 }
 
 // Called when the game starts or when spawned
@@ -43,10 +45,14 @@ void ACollideDetector::OverlapBegin(UPrimitiveComponent* OverlappedComponent, AA
 	{
 		if (OtherActor->ActorHasTag(nameTags[i]))
 		{
+			touchingCorrect = true;
+
 			for (int j = 0; j < linkedElements.Num(); j++)
 			{
-				linkedElements[j]->OnElementActivated.Broadcast(true);
-				linkedElements[j]->SetActiveBool(true);
+				if (linkedElements[j] != NULL)
+				{
+					linkedElements[j]->ActivateElement();
+				}
 			}
 		}
 	}
@@ -58,10 +64,14 @@ void ACollideDetector::OverlapEnd(class UPrimitiveComponent* OverlappedComp, cla
 	{
 		if (OtherActor->ActorHasTag(nameTags[i]))
 		{
+			touchingCorrect = false;
+
 			for (int j = 0; j < linkedElements.Num(); j++)
 			{
-				linkedElements[j]->OnElementActivated.Broadcast(false);
-				linkedElements[j]->SetActiveBool(false);
+				if (linkedElements[j] != NULL)
+				{
+					linkedElements[j]->DeactivateElement();
+				}
 			}
 		}
 	}
