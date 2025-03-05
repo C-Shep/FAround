@@ -48,6 +48,7 @@ void APuzzleTrigger::Trigger()
 	else {
 		if (activeTimer <= 0) {
 			ActivateLinkedElements();
+			activeTimer = activeTimerMax;
 		}
 	}
 }
@@ -56,7 +57,7 @@ void APuzzleTrigger::ActivateLinkedElements()
 {
 	triggerState = true;
 	for (int i = 0; i < triggeredElements.Num(); i++) {
-	//	triggeredElements[i]->SetActiveBool(true);
+		triggeredElements[i]->SetActiveBool(true);
 	}
 
 }
@@ -65,7 +66,7 @@ void APuzzleTrigger::ActivateLinkedElements()
 {
 	triggerState = true;
 	for (int i = 0; i < triggeredElements.Num(); i++) {
-		//	triggeredElements[i]->SetActiveBool(false);
+		triggeredElements[i]->SetActiveBool(false);
 	}
 
 }
