@@ -51,4 +51,6 @@ public:
 
 	int touchingActors;
 
+	bool touchingCorrect;
+
 };
