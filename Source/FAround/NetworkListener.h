@@ -7,6 +7,7 @@
 #include "Networking.h"
 #include "Sockets.h"
 #include "SocketSubsystem.h"
+#include "FAroundGameInstance.h"
 #include "NetworkListener.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FReceivedData, uint8, Data);
@@ -37,5 +38,6 @@ protected:
 	FSocket* listenSocket;
 	FSocket* connectionSocket;
 	FIPv4Endpoint remoteAddressForConnection;
+	UFAroundGameInstance* gameInstance;
 
 };

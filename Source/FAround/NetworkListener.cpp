@@ -20,6 +20,8 @@ void ANetworkListener::BeginPlay()
     listenSocket = FTcpSocketBuilder(TEXT("TcpSocket")).AsReusable().BoundToEndpoint(Endpoint);
     if (!listenSocket->Listen(1))
         UE_LOG(LogTemp, Error, TEXT("Error listening"));
+
+    gameInstance = Cast<UFAroundGameInstance>(GetGameInstance());
     Super::BeginPlay();
 }
 
@@ -72,5 +74,7 @@ void ANetworkListener::HandleConnectedSocket() {
         connectionSocket->Recv(receivedData.GetData(), receivedData.Num(), read);
         uint8 data = receivedData[0];
         OnReceivedData.Broadcast(data);
+
+        gameInstance->TriggerButton(data);
     }
 }
