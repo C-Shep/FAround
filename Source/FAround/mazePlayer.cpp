@@ -90,7 +90,7 @@ void AMazePlayer::Interact(const FInputActionValue& Value)
 			UE_LOG(LogTemp, Warning, TEXT("Hit"));
 
 			//If you interact with a puzzle element, do its blueprint function. Puzzle Triggers!!!!!!
-			Cast<APuzzleElement>(hitActor)->ActivateElement();
+			Cast<APuzzleElement>(hitActor)->ToggleElement();
 		
 		}
 
