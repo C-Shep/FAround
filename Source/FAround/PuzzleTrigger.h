@@ -16,13 +16,13 @@ public:
 	// Sets default values for this actor's properties
 	APuzzleTrigger();
 
-	UPROPERTY(BlueprintReadWrite,EditAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="PuzzleTrigger")
 	TArray<APuzzleElement*> triggeredElements;
 
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "PuzzleTrigger")
 	bool toggle;
 
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "PuzzleTrigger")
 	float activeTimerMax;
 
 	float activeTimer;

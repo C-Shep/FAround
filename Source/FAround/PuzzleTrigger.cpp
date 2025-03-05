@@ -62,7 +62,7 @@ void APuzzleTrigger::ActivateLinkedElements()
 
 }
 
-void APuzzleTrigger::ActivateLinkedElements()
+void APuzzleTrigger::DeactivateLinkedElements()
 {
 	triggerState = true;
 	for (int i = 0; i < triggeredElements.Num(); i++) {
