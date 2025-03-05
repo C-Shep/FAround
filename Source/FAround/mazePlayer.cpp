@@ -78,16 +78,29 @@ void AMazePlayer::Interact(const FInputActionValue& Value)
 	//Temporary Interaction Code for Testing
 	if (GetWorld()->LineTraceSingleByChannel(hit, StartPoint, EndPoint, ECC_Visibility, Parameters))
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Hit"));
+		
 
 		AActor* hitActor = hit.GetActor();
 
 		//Door Interaction
 		if (hitActor->ActorHasTag("PuzzleElement"))
 		{
+			UE_LOG(LogTemp, Warning, TEXT("Hit"));
+
 			//If you interact with a puzzle element, do its blueprint function. Puzzle Triggers!!!!!!
 			APuzzleElement* puzzleElement = Cast<APuzzleElement>(hitActor);
-			puzzleElement->OnElementActivated.Broadcast(true);
+
+			if (!puzzleElement->GetActiveBool())
+			{
+				puzzleElement->OnElementActivated.Broadcast(true);
+				puzzleElement->SetActiveBool(true);
+			}
+			else {
+				puzzleElement->OnElementActivated.Broadcast(false);
+				puzzleElement->SetActiveBool(false);
+			}
+				
+			
 		}
 	}
 }
