@@ -25,6 +25,12 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	bool GetActiveBool();
+	void SetActiveBool(bool newBool);
+
 	UPROPERTY(BlueprintAssignable, Category = "Custom")
 	FPuzzleActive OnElementActivated;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Custom")
+	bool activeBool;
 };

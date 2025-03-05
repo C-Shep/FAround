@@ -25,3 +25,12 @@ void APuzzleElement::Tick(float DeltaTime)
 
 }
 
+bool APuzzleElement::GetActiveBool()
+{
+	return activeBool;
+}
+
+void APuzzleElement::SetActiveBool(bool newBool)
+{
+	activeBool = newBool;
+}
