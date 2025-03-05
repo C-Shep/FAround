@@ -44,6 +44,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<APuzzleElement*> linkedElements;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TArray<FName> nameTags;
+
 	bool activatedTrigger;
 
 	int touchingActors;

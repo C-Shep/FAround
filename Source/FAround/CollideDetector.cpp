@@ -39,10 +39,30 @@ void ACollideDetector::Tick(float DeltaTime)
 //used in children
 void ACollideDetector::OverlapBegin(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-
+	for (int i = 0; i < nameTags.Num(); i++)
+	{
+		if (OtherActor->ActorHasTag(nameTags[i]))
+		{
+			for (int j = 0; j < linkedElements.Num(); j++)
+			{
+				linkedElements[j]->OnElementActivated.Broadcast(true);
+				linkedElements[j]->SetActiveBool(true);
+			}
+		}
+	}
 }
 
 void ACollideDetector::OverlapEnd(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 {
-
+	for (int i = 0; i < nameTags.Num(); i++)
+	{
+		if (OtherActor->ActorHasTag(nameTags[i]))
+		{
+			for (int j = 0; j < linkedElements.Num(); j++)
+			{
+				linkedElements[j]->OnElementActivated.Broadcast(false);
+				linkedElements[j]->SetActiveBool(false);
+			}
+		}
+	}
 }
