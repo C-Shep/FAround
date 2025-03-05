@@ -45,8 +45,10 @@ void ACollideDetector::OverlapBegin(UPrimitiveComponent* OverlappedComponent, AA
 		{
 			for (int j = 0; j < linkedElements.Num(); j++)
 			{
-				linkedElements[j]->OnElementActivated.Broadcast(true);
-				linkedElements[j]->SetActiveBool(true);
+				if (linkedElements[j] != NULL)
+				{
+					linkedElements[j]->ActivateElement();
+				}
 			}
 		}
 	}
@@ -60,8 +62,10 @@ void ACollideDetector::OverlapEnd(class UPrimitiveComponent* OverlappedComp, cla
 		{
 			for (int j = 0; j < linkedElements.Num(); j++)
 			{
-				linkedElements[j]->OnElementActivated.Broadcast(false);
-				linkedElements[j]->SetActiveBool(false);
+				if (linkedElements[j] != NULL)
+				{
+					linkedElements[j]->DeactivateElement();
+				}
 			}
 		}
 	}

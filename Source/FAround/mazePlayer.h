@@ -61,6 +61,11 @@ public:
 
 	//Interaction Range
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float interactionRange = 200.f;
+	float interactionRange;
 
+	//Health
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float playerHealth;
+
+	void TakeDamage(const float damage);
 };
