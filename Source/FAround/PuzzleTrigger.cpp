@@ -24,12 +24,14 @@ void APuzzleTrigger::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 
-	if (activeTimer > 0) {
-		activeTimer -= DeltaTime;
-	}
-	else {;
-		if (triggerState) {
-			DeactivateLinkedElements();
+	if (!toggle) {
+		if (activeTimer > 0) {
+			activeTimer -= DeltaTime;
+		}
+		else {
+			if (triggerState) {
+				DeactivateLinkedElements();
+			}
 		}
 	}
 
@@ -37,6 +39,7 @@ void APuzzleTrigger::Tick(float DeltaTime)
 
 void APuzzleTrigger::Trigger() 
 {
+	if (GEngine) GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Yellow, TEXT("Some debug message!"));
 	if (toggle) {
 		if (triggerState) {
 			DeactivateLinkedElements();
@@ -57,16 +60,16 @@ void APuzzleTrigger::ActivateLinkedElements()
 {
 	triggerState = true;
 	for (int i = 0; i < triggeredElements.Num(); i++) {
-		triggeredElements[i]->SetActiveBool(true);
+		triggeredElements[i]->ActivateElement();
 	}
 
 }
 
 void APuzzleTrigger::DeactivateLinkedElements()
 {
-	triggerState = true;
+	triggerState = false;
 	for (int i = 0; i < triggeredElements.Num(); i++) {
-		triggeredElements[i]->SetActiveBool(false);
+		triggeredElements[i]->DeactivateElement();
 	}
 
 }

@@ -28,6 +28,11 @@ public:
 	bool GetActiveBool();
 	void SetActiveBool(bool newBool);
 
+	void ActivateElement();
+	void DeactivateElement();
+
+	void ToggleElement();
+
 	UPROPERTY(BlueprintAssignable, Category = "Custom")
 	FPuzzleActive OnElementActivated;
 

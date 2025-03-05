@@ -2,6 +2,8 @@
 
 
 #include "MazePlayer.h"
+#include "PuzzleTrigger.h"
+#include "PuzzleElement.h"
 #include "Logging/LogMacros.h"
 
 // Sets default values
@@ -83,24 +85,18 @@ void AMazePlayer::Interact(const FInputActionValue& Value)
 		AActor* hitActor = hit.GetActor();
 
 		//Door Interaction
-		if (hitActor->ActorHasTag("PuzzleElement"))
+		if (hitActor->ActorHasTag("PuzzleElementDebug"))
 		{
 			UE_LOG(LogTemp, Warning, TEXT("Hit"));
 
 			//If you interact with a puzzle element, do its blueprint function. Puzzle Triggers!!!!!!
-			APuzzleElement* puzzleElement = Cast<APuzzleElement>(hitActor);
+			Cast<APuzzleElement>(hitActor)->ActivateElement();
+		
+		}
 
-			if (!puzzleElement->GetActiveBool())
-			{
-				puzzleElement->OnElementActivated.Broadcast(true);
-				puzzleElement->SetActiveBool(true);
-			}
-			else {
-				puzzleElement->OnElementActivated.Broadcast(false);
-				puzzleElement->SetActiveBool(false);
-			}
-				
-			
+		if (hitActor->ActorHasTag("PuzzleTrigger")) 
+		{
+			Cast<APuzzleTrigger>(hitActor)->Trigger();
 		}
 	}
 }

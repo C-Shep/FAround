@@ -25,8 +25,10 @@ public:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "PuzzleTrigger")
 	float activeTimerMax;
 
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	float activeTimer;
 	
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	bool triggerState;
 
 protected:
