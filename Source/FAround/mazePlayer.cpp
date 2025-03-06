@@ -61,8 +61,6 @@ void AMazePlayer::JumpFunc(const FInputActionValue& Value)
 	const bool jumpPressed = Value.Get<bool>();
 
 	ACharacter::Jump();
-
-	TakeDamage(10);
 }
 
 void AMazePlayer::Interact(const FInputActionValue& Value)
@@ -106,7 +104,7 @@ void AMazePlayer::Interact(const FInputActionValue& Value)
 }
 
 //Player take damage function
-void AMazePlayer::TakeDamage(const float damage)
+void AMazePlayer::TakeDamage(float damage)
 {
 	//reduce health by damage
 	playerHealth -= damage;

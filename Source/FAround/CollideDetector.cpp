@@ -8,8 +8,6 @@ ACollideDetector::ACollideDetector()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-	activatedTrigger = false;
-	touchingActors = 0;
 
 	//Create collisionbox component
 	collisionBox = CreateDefaultSubobject<UBoxComponent>(TEXT("BoxCollision"));
@@ -17,8 +15,6 @@ ACollideDetector::ACollideDetector()
 	//Finish collision box setup
 	collisionBox->SetupAttachment(RootComponent);
 	collisionBox->SetRelativeLocation(FVector(0.0f, 0.0f, 0.0f));
-
-	touchingCorrect = false;
 }
 
 // Called when the game starts or when spawned
@@ -45,8 +41,6 @@ void ACollideDetector::OverlapBegin(UPrimitiveComponent* OverlappedComponent, AA
 	{
 		if (OtherActor->ActorHasTag(nameTags[i]))
 		{
-			touchingCorrect = true;
-
 			for (int j = 0; j < linkedElements.Num(); j++)
 			{
 				if (linkedElements[j] != NULL)
@@ -64,8 +58,6 @@ void ACollideDetector::OverlapEnd(class UPrimitiveComponent* OverlappedComp, cla
 	{
 		if (OtherActor->ActorHasTag(nameTags[i]))
 		{
-			touchingCorrect = false;
-
 			for (int j = 0; j < linkedElements.Num(); j++)
 			{
 				if (linkedElements[j] != NULL)
