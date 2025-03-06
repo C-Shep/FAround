@@ -2,28 +2,38 @@
 
 
 #include "Spikes.h"
+#include "Logging/LogMacros.h"
 
 ASpikes::ASpikes()
 {
 	damageTimerMax = 1.f;
 	damageTimer = 0.f;
+	damageSpeed = 1.f;
 	damage = 1;
 	isTouchingPlayer = false;
 }
 
 void ASpikes::OverlapBegin(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	if (player == NULL)
+	//search for player
+	if (OtherActor->ActorHasTag(nameTags[0]))
 	{
-		player = OtherActor;
+		if (player == NULL)
+		{
+			player = OtherActor;
+		}
+
+		isTouchingPlayer = true;
 	}
-	
-	isTouchingPlayer = true;
 }
 
 void ASpikes::OverlapEnd(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 {
-	isTouchingPlayer = false;
+	//search for player
+	if (OtherActor->ActorHasTag(nameTags[0]))
+	{
+		isTouchingPlayer = false;
+	}
 }
 
 void ASpikes::BeginPlay()
@@ -39,7 +49,7 @@ void ASpikes::Tick(float DeltaTime)
 	{
 		if (damageTimer > 0)
 		{
-			damageTimer -= 1 * DeltaTime;
+			damageTimer -= damageSpeed * DeltaTime;
 		}
 		else {
 			Cast<AMazePlayer>(player)->TakeDamage(damage);

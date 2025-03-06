@@ -27,8 +27,14 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Damage Attributes")
 	float damageTimerMax;
 	float damageTimer;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Damage Attributes")
+	float damageSpeed;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Damage Attributes")
 	float damage;
 
 	AActor* player;

@@ -46,11 +46,4 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<FName> nameTags;
-
-	bool activatedTrigger;
-
-	int touchingActors;
-
-	bool touchingCorrect;
-
 };
