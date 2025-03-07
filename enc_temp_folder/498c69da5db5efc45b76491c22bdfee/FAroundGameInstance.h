@@ -26,5 +26,5 @@ public:
 
 	void TriggerButton(int index);
 
-	bool isServer = false;
+	bool isServer = true;
 };
