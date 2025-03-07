@@ -21,10 +21,6 @@ AMazePlayer::AMazePlayer()
 
 	interactionRange = 200.f;
 	playerHealth = 100.f;
-
-	restartTimer = 0.f;
-	maxRestartTimer = 2.f;
-	bleedOut = false;
 }
 
 // Called when the game starts or when spawned
@@ -45,33 +41,26 @@ void AMazePlayer::BeginPlay()
 //move around
 void AMazePlayer::Move(const FInputActionValue& Value)
 {
-	if (!bleedOut)
-	{
-		FVector2D moveVector = Value.Get<FVector2D>();
-		AddMovementInput(GetActorForwardVector(), moveVector.Y);
-		AddMovementInput(GetActorRightVector(), moveVector.X);
-	}
+	FVector2D moveVector = Value.Get<FVector2D>();
+
+	AddMovementInput(GetActorForwardVector(), moveVector.Y);
+	AddMovementInput(GetActorRightVector(), moveVector.X);
 }
 
 //look around
 void AMazePlayer::Look(const FInputActionValue& Value)
 {
-	if (!bleedOut)
-	{
-		FVector2D lookVector = Value.Get<FVector2D>();
-		AddControllerYawInput(lookVector.X);
-		AddControllerPitchInput(-lookVector.Y);
-	}
+	FVector2D lookVector = Value.Get<FVector2D>();
+	AddControllerYawInput(lookVector.X);
+	AddControllerPitchInput(-lookVector.Y);
 }
 
 //jump? idk if we wanna jump but why not
 void AMazePlayer::JumpFunc(const FInputActionValue& Value)
 {
-	if (!bleedOut)
-	{
-		const bool jumpPressed = Value.Get<bool>();
-		ACharacter::Jump();
-	}
+	const bool jumpPressed = Value.Get<bool>();
+
+	ACharacter::Jump();
 }
 
 void AMazePlayer::Interact(const FInputActionValue& Value)
@@ -123,7 +112,7 @@ void AMazePlayer::TakeDamage(float damage)
 	//if hp is less than or is 0, restart
 	if (playerHealth <= 0.f)
 	{
-		bleedOut = true;
+		UGameplayStatics::OpenLevel(this,FName(*GetWorld()->GetName()),false);
 	}
 }
 
@@ -132,16 +121,6 @@ void AMazePlayer::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	if (bleedOut)
-	{
-		if (restartTimer < maxRestartTimer)
-		{
-			restartTimer += 1.f * DeltaTime;
-		}
-		else {
-			UGameplayStatics::OpenLevel(this, FName(*GetWorld()->GetName()), false);
-		}
-	}
 }
 
 // Called to bind functionality to input
