@@ -19,8 +19,8 @@ void AKeypadTrigger::BeginPlay()
 	//generate random password
 	for (int i = 0; i < passLength; i++)
 	{
-		int passMin = 100;
-		int passMax = 109;
+		int passMin = 0;
+		int passMax = 9;
 		password[i] = FMath::RandRange(passMin, passMax);
 	}
 }
@@ -29,19 +29,16 @@ void AKeypadTrigger::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	// if entered Password is correct length...
-	if (enteredPassword.Num() == passLength)
-	{
-		//if correct...
-		if (enteredPassword == password)
-		{
-			//activate everything
-			ActivateLinkedElements();
-		}
-		else {	//if wrong...
-			//reset entered password
-			enteredPassword.Empty();
-		}
-	}
+}
 
+void AKeypadTrigger::RecieveBroadcast(TArray<uint8> enteredPassword)
+{
+	if (enteredPassword == password)
+	{
+		//activate everything
+		ActivateLinkedElements();
+	}
+	else {	//if wrong...
+		DeactivateLinkedElements();
+	}
 }

@@ -28,7 +28,7 @@ public:
 
 	void TriggerButton(int index);
 
-	void BroadcastCode(int enteredPassword[4]);
+	void BroadcastCode(TArray<uint8> enteredPassword);
 
 	bool isServer = false;
 };

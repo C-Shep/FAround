@@ -29,7 +29,7 @@ void UFAroundGameInstance::TriggerButton(int index)
 	buttons[index]->Trigger();
 }
 
-void UFAroundGameInstance::BroadcastCode(int enteredPassword[4])
+void UFAroundGameInstance::BroadcastCode(TArray<uint8> enteredPassword)
 {
 	for (auto keypad : keypadItems) {
 		keypad->RecieveBroadcast(enteredPassword);

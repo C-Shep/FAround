@@ -37,14 +37,18 @@ void APuzzleElement::SetActiveBool(bool newBool)
 
 void APuzzleElement::ActivateElement() {
 
+	if (!activeBool) {
 		OnElementActivated.Broadcast(true);
+	}
 		SetActiveBool(true);
 
 }
 
 void APuzzleElement::DeactivateElement() {
 
-	OnElementActivated.Broadcast(false);
+	if (activeBool) {
+		OnElementActivated.Broadcast(false);
+	}
 	SetActiveBool(false);
 
 }

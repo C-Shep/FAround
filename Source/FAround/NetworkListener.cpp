@@ -88,12 +88,9 @@ void ANetworkListener::HandleConnectedSocket() {
             case 111:
                 if (enteredPass.Num() == 4) {
 
-                    int password[4];
-                    for (int i = 0; i < 4; i++) {
-                        password[i] = enteredPass[i];
-                    }
+                  
 
-                    gameInstance->BroadcastCode(password);
+                    gameInstance->BroadcastCode(enteredPass);
                     enteredPass.Empty();
                 }
                 break;

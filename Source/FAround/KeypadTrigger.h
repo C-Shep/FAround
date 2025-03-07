@@ -26,11 +26,14 @@ public:
 
 	//Init vars
 	UPROPERTY(EditAnywhere,BlueprintReadWrite)
-	TArray<int> password;
+	TArray<uint8> password;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TArray<int> enteredPassword;
+	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	//TArray<int> enteredPassword;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int passLength;
+
+	void RecieveBroadcast(TArray<uint8> enteredPassword);
+	
 };
