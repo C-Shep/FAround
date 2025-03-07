@@ -69,11 +69,5 @@ public:
 
 	void TakeDamage(const float damage);
 
-	//Death
-	float restartTimer;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float maxRestartTimer;
-
-	bool bleedOut;
+//	UFUNCTION(BlueprintCallable) float GetHealth();
 };
