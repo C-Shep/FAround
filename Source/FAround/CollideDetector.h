@@ -15,7 +15,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCollideDetect, bool, collideActive)
 
 
 UCLASS()
-class FAROUND_API ACollideDetector : public AActor
+class FAROUND_API ACollideDetector : public APuzzleElement
 {
 	GENERATED_BODY()
 	
@@ -35,7 +35,7 @@ public:
 	UFUNCTION() virtual void OverlapBegin(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 	UFUNCTION() virtual void OverlapEnd(UPrimitiveComponent* OverlappedComponent, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	UBoxComponent* collisionBox;
 
 	UPROPERTY(BlueprintAssignable, Category = "Custom")
