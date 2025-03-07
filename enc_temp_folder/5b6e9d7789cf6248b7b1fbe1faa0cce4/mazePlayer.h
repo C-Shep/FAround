@@ -67,14 +67,6 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float playerHealth;
 
-	//intensity of damage effect
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float damageProcessIntensity;
-
-	//Speed at which the PP fades out
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float damageProcessFadeSpeed;
-
 	void TakeDamage(const float damage);
 
 	//Death

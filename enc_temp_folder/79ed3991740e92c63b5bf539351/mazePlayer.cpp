@@ -22,10 +22,6 @@ AMazePlayer::AMazePlayer()
 	interactionRange = 200.f;
 	playerHealth = 100.f;
 
-	//intensity of post process damage effect
-	damageProcessIntensity = 0;
-	damageProcessFadeSpeed = 1;
-
 	restartTimer = 0.f;
 	maxRestartTimer = 2.f;
 	bleedOut = false;
@@ -124,9 +120,6 @@ void AMazePlayer::TakeDamage(float damage)
 	//reduce health by damage
 	playerHealth -= damage;
 
-	//set damage intensity to max
-	damageProcessIntensity = 1.f;
-
 	//if hp is less than or is 0, restart
 	if (playerHealth <= 0.f)
 	{
@@ -143,19 +136,11 @@ void AMazePlayer::Tick(float DeltaTime)
 	{
 		if (restartTimer < maxRestartTimer)
 		{
-			damageProcessIntensity = 1.f;
 			restartTimer += 1.f * DeltaTime;
 		}
 		else {
 			UGameplayStatics::OpenLevel(this, FName(*GetWorld()->GetName()), false);
 		}
-	}
-	else {
-		if (damageProcessIntensity > 0)
-		{
-			damageProcessIntensity -= damageProcessFadeSpeed * DeltaTime;
-		}
-		
 	}
 }
 
