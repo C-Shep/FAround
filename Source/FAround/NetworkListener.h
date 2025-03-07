@@ -40,4 +40,6 @@ protected:
 	FIPv4Endpoint remoteAddressForConnection;
 	UFAroundGameInstance* gameInstance;
 
+	TArray<int> enteredPass;
+
 };

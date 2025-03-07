@@ -12,12 +12,26 @@ void UFAroundGameInstance::FindAllButtons(UWorld * world)
 	UGameplayStatics::GetAllActorsOfClass(world, APuzzleTrigger::StaticClass(), foundActors);
 
 	for (int i = 0; i < foundActors.Num(); i++) {
-		buttons.Add(Cast<APuzzleTrigger>(foundActors[i]));
+		if (foundActors[i]->ActorHasTag("Button")) {
+			buttons.Add(Cast<APuzzleTrigger>(foundActors[i]));
+		}
+		else if (foundActors[i]->ActorHasTag("Keypad")) {
+			keypadItems.Add(Cast<AKeypadTrigger>(foundActors[i]));
+		}
 	}
+
+
 
 }
 
 void UFAroundGameInstance::TriggerButton(int index) 
 {
 	buttons[index]->Trigger();
+}
+
+void UFAroundGameInstance::BroadcastCode(int enteredPassword[4])
+{
+	for (auto keypad : keypadItems) {
+		keypad->RecieveBroadcast(enteredPassword);
+	}
 }

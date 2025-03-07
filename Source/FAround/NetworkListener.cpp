@@ -75,6 +75,38 @@ void ANetworkListener::HandleConnectedSocket() {
         uint8 data = receivedData[0];
         OnReceivedData.Broadcast(data);
 
-        gameInstance->TriggerButton(data);
+
+        if (data >= 100) {
+
+            switch (data) {
+
+            case 110:
+                if (enteredPass.Num() > 0) {
+                    enteredPass.RemoveAt(enteredPass.Num() - 1,EAllowShrinking::Yes);
+                }
+                break;
+            case 111:
+                if (enteredPass.Num() == 4) {
+
+                    int password[4];
+                    for (int i = 0; i < 4; i++) {
+                        password[i] = enteredPass[i];
+                    }
+
+                    gameInstance->BroadcastCode(password);
+                    enteredPass.Empty();
+                }
+                break;
+            default:
+                if (enteredPass.Num() < 4) {
+                    enteredPass.Add(data - 100);
+                }
+                break;
+            }
+
+        }
+        else {
+            gameInstance->TriggerButton(data);
+        }
     }
 }
