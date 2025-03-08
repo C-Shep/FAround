@@ -84,4 +84,7 @@ public:
 	float maxRestartTimer;
 
 	bool bleedOut;
+
+	UFUNCTION(Server,Reliable)
+	virtual void ServerTrigger(AActor * button);
 };

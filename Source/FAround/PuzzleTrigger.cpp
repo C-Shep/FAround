@@ -37,7 +37,7 @@ void APuzzleTrigger::Tick(float DeltaTime)
 
 }
 
-void APuzzleTrigger::Trigger() 
+void APuzzleTrigger::Trigger_Implementation() 
 {
 	if (GEngine) GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Yellow, TEXT("Some debug message!"));
 	if (toggle) {

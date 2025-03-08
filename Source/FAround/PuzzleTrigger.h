@@ -39,6 +39,7 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	UFUNCTION(NetMulticast,Reliable)
 	virtual void Trigger();
 
 	void ActivateLinkedElements();

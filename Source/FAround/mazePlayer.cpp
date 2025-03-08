@@ -113,7 +113,7 @@ void AMazePlayer::Interact(const FInputActionValue& Value)
 
 		if (hitActor->ActorHasTag("PuzzleTrigger")) 
 		{
-			Cast<APuzzleTrigger>(hitActor)->Trigger();
+			ServerTrigger(hitActor);
 		}
 	}
 }
@@ -170,5 +170,10 @@ void AMazePlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 		EnhancedInputComponenet->BindAction(jumpIA, ETriggerEvent::Started, this, &AMazePlayer::JumpFunc);
 		EnhancedInputComponenet->BindAction(interactIA, ETriggerEvent::Started, this, &AMazePlayer::Interact);
 	}
+}
+
+void AMazePlayer::ServerTrigger_Implementation(AActor* button)
+{
+	Cast<APuzzleTrigger>(button)->Trigger();
 }
 
