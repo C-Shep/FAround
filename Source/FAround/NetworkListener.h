@@ -33,7 +33,7 @@ public:
 	virtual void Tick(float DeltaTime) override;
 	UPROPERTY(BlueprintAssignable, Category = "Custom")
 	FReceivedData OnReceivedData;
-
+	void SendData(uint8 data);
 protected:
 	FSocket* listenSocket;
 	FSocket* connectionSocket;
