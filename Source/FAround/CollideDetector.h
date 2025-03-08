@@ -11,7 +11,6 @@
 #include "GameFramework/Actor.h"
 #include "CollideDetector.generated.h"
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCollideDetect, bool, collideActive);
 
 
 UCLASS()
@@ -38,8 +37,6 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	UBoxComponent* collisionBox;
 
-	UPROPERTY(BlueprintAssignable, Category = "Custom")
-	FCollideDetect OnCollided;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<APuzzleElement*> linkedElements;

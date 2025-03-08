@@ -6,6 +6,13 @@
 
 ASpikes::ASpikes()
 {
+	//Create collisionbox component
+	collisionBox = CreateDefaultSubobject<UBoxComponent>(TEXT("BoxCollision"));
+
+	//Finish collision box setup
+	collisionBox->SetupAttachment(RootComponent);
+	collisionBox->SetRelativeLocation(FVector(0.0f, 0.0f, 0.0f));
+
 	damageTimerMax = 1.f;
 	damageTimer = 0.f;
 	damageSpeed = 1.f;
@@ -39,6 +46,9 @@ void ASpikes::OverlapEnd(UPrimitiveComponent* OverlappedComponent, AActor* Other
 void ASpikes::BeginPlay()
 {
 	Super::BeginPlay();
+
+	collisionBox->OnComponentBeginOverlap.AddDynamic(this, &ASpikes::OverlapBegin);
+	collisionBox->OnComponentEndOverlap.AddDynamic(this, &ASpikes::OverlapEnd);
 }
 
 void ASpikes::Tick(float DeltaTime)
