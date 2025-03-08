@@ -22,6 +22,7 @@ void ANetworkListener::BeginPlay()
         UE_LOG(LogTemp, Error, TEXT("Error listening"));
 
     gameInstance = Cast<UFAroundGameInstance>(GetGameInstance());
+    gameInstance->networkListener = this;
     Super::BeginPlay();
 }
 
@@ -29,8 +30,12 @@ void ANetworkListener::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
     if (listenSocket)
         listenSocket->Close();
-    if (connectionSocket)
+    if (connectionSocket) {
+        uint8 data = 255;
+        int32 sentData;
+        connectionSocket->Send(&data, 1, sentData);
         connectionSocket->Close();
+    }
     Super::EndPlay(EndPlayReason);
 }
 
@@ -105,5 +110,18 @@ void ANetworkListener::HandleConnectedSocket() {
         else {
             gameInstance->TriggerButton(data);
         }
+    }
+}
+
+void ANetworkListener::SendData(uint8 data) {
+    if (connectionSocket) {
+        int32 bytesSent = 0;
+        connectionSocket->Send(&data, 1, bytesSent);
+        if (bytesSent == 0) {
+            GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Red, TEXT("Failed to send message to DS"));
+        }
+    }
+    else {
+        GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Red, TEXT("No connected DS"));
     }
 }
