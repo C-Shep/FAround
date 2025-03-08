@@ -3,6 +3,7 @@
 
 #include "FAroundGameInstance.h"
 #include "Kismet/GameplayStatics.h"
+#include "NetworkListener.h"
 
 void UFAroundGameInstance::FindAllButtons(UWorld * world)
 {
@@ -33,5 +34,11 @@ void UFAroundGameInstance::BroadcastCode(TArray<uint8> enteredPassword)
 {
 	for (auto keypad : keypadItems) {
 		keypad->RecieveBroadcast(enteredPassword);
+	}
+}
+
+void UFAroundGameInstance::SendDataToDS(uint8 data) {
+	if (networkListener != nullptr) {
+		networkListener->SendData(data);
 	}
 }

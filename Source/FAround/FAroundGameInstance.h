@@ -8,6 +8,8 @@
 #include "KeypadTrigger.h"
 #include "FAroundGameInstance.generated.h"
 
+class ANetworkListener;
+
 /**
  * 
  */
@@ -30,6 +32,9 @@ public:
 
 	void BroadcastCode(TArray<uint8> enteredPassword);
 
+	void SendDataToDS(uint8 data);
+
 	UPROPERTY(EditAnywhere,BlueprintReadWrite)
 	bool isServer = false;
+	ANetworkListener* networkListener;
 };

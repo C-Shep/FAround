@@ -6,6 +6,7 @@
 #include "PuzzleElement.h"
 #include "Kismet/GameplayStatics.h"
 #include "Logging/LogMacros.h"
+#include "FAroundGameInstance.h"
 
 // Sets default values
 AMazePlayer::AMazePlayer()
@@ -147,6 +148,7 @@ void AMazePlayer::Tick(float DeltaTime)
 			restartTimer += 1.f * DeltaTime;
 		}
 		else {
+			Cast<UFAroundGameInstance>(GetGameInstance())->SendDataToDS(254);
 			UGameplayStatics::OpenLevel(this, FName(*GetWorld()->GetName()), false);
 		}
 	}
