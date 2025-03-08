@@ -34,9 +34,12 @@ protected:
 
 	/* First Pawn Type To Use */
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "My Controller")
-	TSubclassOf<APawn> PawnToUseA;
+	TSubclassOf<APawn> PawnToUseMaze;
 
 	/* Second Pawn Type To Use */
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "My Controller")
-	TSubclassOf<APawn> PawnToUseB;
+	TSubclassOf<APawn> PawnToUseControlRoom;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "My Controller")
+	TSubclassOf<APawn> PawnToUseVR;
 };

@@ -10,8 +10,8 @@
 AFAroundPlayerController::AFAroundPlayerController(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
 {
 	/* Initialize The Values */
-	PawnToUseA= NULL;
-	PawnToUseB= NULL;
+	PawnToUseMaze= NULL;
+	PawnToUseControlRoom= NULL;
 
 	/* Make sure the PawnClass is Replicated */
 	bReplicates = true;
@@ -35,12 +35,12 @@ void AFAroundPlayerController::DeterminePawnClass_Implementation()
 		/* Use PawnA if the Text File tells us to */
 		if (Cast<UFAroundGameInstance>(GetGameInstance())->isServer)
 		{
-			ServerSetPawn(PawnToUseA);
+			ServerSetPawn(PawnToUseMaze);
 			return;
 		}
 
 		/* Otherwise, Use PawnB :) */
-		ServerSetPawn(PawnToUseB);
+		ServerSetPawn(PawnToUseControlRoom);
 		return;
 	}
 }
@@ -61,5 +61,5 @@ void AFAroundPlayerController::ServerSetPawn_Implementation(TSubclassOf<APawn> I
 // Replication
 void AFAroundPlayerController::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
-	DOREPLIFETIME(AFAroundPlayerController, MyPawnClass);
+	//DOREPLIFETIME(AFAroundPlayerController, MyPawnClass);
 }

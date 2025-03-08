@@ -30,5 +30,6 @@ public:
 
 	void BroadcastCode(TArray<uint8> enteredPassword);
 
+	UPROPERTY(EditAnywhere,BlueprintReadWrite)
 	bool isServer = false;
 };
