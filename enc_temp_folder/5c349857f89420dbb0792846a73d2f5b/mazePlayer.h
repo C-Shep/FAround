@@ -83,7 +83,6 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float maxRestartTimer;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool bleedOut;
 
 	UFUNCTION(Server,Reliable)
