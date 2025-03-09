@@ -25,17 +25,17 @@ void AButtonGetter::BeginPlay()
 
 void AButtonGetter::Tick(float DeltaTime) {
 
+	UFAroundGameInstance* instance = Cast<UFAroundGameInstance>(GetGameInstance());
 	if (delayTimer > 0) {
 		delayTimer -= DeltaTime;
 	}
 	else {
 		if (!triggered) {
-			UFAroundGameInstance* instance = Cast<UFAroundGameInstance>(GetGameInstance());
 			instance->FindAllButtons(GetWorld());
 			triggered = true;
 		}
 	}
-	
+	instance->checkForConnection(GetWorld());
 }
 
 
