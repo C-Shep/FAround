@@ -114,7 +114,47 @@ void AMazePlayer::Interact(const FInputActionValue& Value)
 
 		if (hitActor->ActorHasTag("PuzzleTrigger")) 
 		{
+			
 			ServerTrigger(hitActor);
+		}
+
+		if (hitActor->ActorHasTag("UserKeypad")) {
+			if (hit.GetComponent()->ComponentHasTag("0")) {
+
+			}
+			if (hit.GetComponent()->ComponentHasTag("1")) {
+
+			}
+			if (hit.GetComponent()->ComponentHasTag("2")) {
+
+			}
+			if (hit.GetComponent()->ComponentHasTag("3")) {
+
+			}
+			if (hit.GetComponent()->ComponentHasTag("4")) {
+
+			}
+			if (hit.GetComponent()->ComponentHasTag("5")) {
+
+			}
+			if (hit.GetComponent()->ComponentHasTag("6")) {
+
+			}
+			if (hit.GetComponent()->ComponentHasTag("7")) {
+
+			}
+			if (hit.GetComponent()->ComponentHasTag("8")) {
+
+			}
+			if (hit.GetComponent()->ComponentHasTag("9")) {
+
+			}
+			if (hit.GetComponent()->ComponentHasTag("submit")) {
+
+			}
+			if (hit.GetComponent()->ComponentHasTag("backspace")) {
+
+			}
 		}
 	}
 }
@@ -181,3 +221,7 @@ void AMazePlayer::ServerTrigger_Implementation(AActor* button)
 	Cast<APuzzleTrigger>(button)->Trigger();
 }
 
+void AMazePlayer::ServerKeypad_Implementation(AActor* button)
+{
+	Cast<APuzzleTrigger>(button)->Trigger();
+}

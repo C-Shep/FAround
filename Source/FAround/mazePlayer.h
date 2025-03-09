@@ -88,4 +88,7 @@ public:
 
 	UFUNCTION(Server,Reliable)
 	virtual void ServerTrigger(AActor * button);
+
+	UFUNCTION(Server, Reliable)
+	virtual void ServerKeypad(AActor* button);
 };
