@@ -14,6 +14,7 @@ ANetworkListener::ANetworkListener()
 // Called when the game starts or when spawned
 void ANetworkListener::BeginPlay()
 {
+    gameInstance = Cast<UFAroundGameInstance>(GetGameInstance());
     if (gameInstance->listenerSocket != nullptr) {
         listenSocket = gameInstance->listenerSocket;
     }
@@ -25,7 +26,7 @@ void ANetworkListener::BeginPlay()
         if (!listenSocket->Listen(1))
             UE_LOG(LogTemp, Error, TEXT("Error listening"));
     }
-    gameInstance = Cast<UFAroundGameInstance>(GetGameInstance());
+    
     gameInstance->networkListener = this;
     if (gameInstance->connectedSocket != nullptr) {
         connectionSocket = gameInstance->connectedSocket;
@@ -134,6 +135,9 @@ void ANetworkListener::SendData(uint8 data) {
         connectionSocket->Send(&data, 1, bytesSent);
         if (bytesSent == 0) {
             GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Red, TEXT("Failed to send message to DS"));
+        }
+        else {
+            GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Red, TEXT("Sent to DS!"));
         }
     }
     else {
