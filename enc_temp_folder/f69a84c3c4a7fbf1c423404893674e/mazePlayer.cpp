@@ -133,8 +133,6 @@ void AMazePlayer::TakeDamage(float damage)
 	{
 		bleedOut = true;
 	}
-	uint8 hp = playerHealth;
-	Cast<UFAroundGameInstance>(GetGameInstance())->SendDataToDS(hp);
 }
 
 // Called every frame
