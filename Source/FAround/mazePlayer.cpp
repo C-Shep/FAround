@@ -149,7 +149,7 @@ void AMazePlayer::Tick(float DeltaTime)
 		}
 		else {
 			Cast<UFAroundGameInstance>(GetGameInstance())->SendDataToDS(254);
-			UGameplayStatics::OpenLevel(this, FName(*GetWorld()->GetName()), false);
+			UGameplayStatics::OpenLevel(this, FName(*GetWorld()->GetName()), false,FString("listen"));
 		}
 	}
 	else {
