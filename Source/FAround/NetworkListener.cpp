@@ -14,6 +14,7 @@ ANetworkListener::ANetworkListener()
 // Called when the game starts or when spawned
 void ANetworkListener::BeginPlay()
 {
+    gameInstance = Cast<UFAroundGameInstance>(GetGameInstance());
     if (gameInstance->listenerSocket != nullptr) {
         listenSocket = gameInstance->listenerSocket;
     }
@@ -25,7 +26,6 @@ void ANetworkListener::BeginPlay()
         if (!listenSocket->Listen(1))
             UE_LOG(LogTemp, Error, TEXT("Error listening"));
     }
-    gameInstance = Cast<UFAroundGameInstance>(GetGameInstance());
     gameInstance->networkListener = this;
     if (gameInstance->connectedSocket != nullptr) {
         connectionSocket = gameInstance->connectedSocket;

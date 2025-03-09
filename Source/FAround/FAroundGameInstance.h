@@ -41,6 +41,8 @@ public:
 	bool isServer = false;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool isPlayer2Connected = false;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool isHostingDS = false;
 	UFUNCTION(BlueprintCallable)
 	void checkForConnection(UWorld* world);
 	ANetworkListener* networkListener;
