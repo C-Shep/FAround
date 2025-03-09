@@ -35,6 +35,7 @@ public:
 
 	void BroadcastCode(TArray<uint8> enteredPassword);
 
+	UFUNCTION(BlueprintCallable)
 	void SendDataToDS(uint8 data);
 
 	UPROPERTY(EditAnywhere,BlueprintReadWrite)
