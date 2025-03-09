@@ -3,6 +3,7 @@
 
 #include "FAroundGameInstance.h"
 #include "Kismet/GameplayStatics.h"
+#include "mazePlayer.h"
 #include "NetworkListener.h"
 
 void UFAroundGameInstance::FindAllButtons(UWorld * world)
@@ -40,5 +41,16 @@ void UFAroundGameInstance::BroadcastCode(TArray<uint8> enteredPassword)
 void UFAroundGameInstance::SendDataToDS(uint8 data) {
 	if (networkListener != nullptr) {
 		networkListener->SendData(data);
+	}
+}
+
+void UFAroundGameInstance::checkForConnection(UWorld* world) {
+	TArray<AActor*> foundActors;
+	UGameplayStatics::GetAllActorsOfClass(world, AMazePlayer::StaticClass(), foundActors);
+	if (connectedSocket != nullptr || foundActors.Num() == 2) {
+		isPlayer2Connected = true;
+	}
+	else {
+		isPlayer2Connected = false;
 	}
 }

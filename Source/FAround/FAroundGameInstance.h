@@ -39,6 +39,10 @@ public:
 
 	UPROPERTY(EditAnywhere,BlueprintReadWrite)
 	bool isServer = false;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool isPlayer2Connected = false;
+	UFUNCTION(BlueprintCallable)
+	void checkForConnection(UWorld* world);
 	ANetworkListener* networkListener;
 	FSocket* connectedSocket;
 	FSocket* listenerSocket;
