@@ -6,6 +6,9 @@
 #include "Engine/GameInstance.h"
 #include "PuzzleTrigger.h"
 #include "KeypadTrigger.h"
+#include "Networking.h"
+#include "Sockets.h"
+#include "SocketSubsystem.h"
 #include "FAroundGameInstance.generated.h"
 
 class ANetworkListener;
@@ -37,4 +40,6 @@ public:
 	UPROPERTY(EditAnywhere,BlueprintReadWrite)
 	bool isServer = false;
 	ANetworkListener* networkListener;
+	FSocket* connectedSocket;
+	FSocket* listenerSocket;
 };

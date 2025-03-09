@@ -14,27 +14,42 @@ ANetworkListener::ANetworkListener()
 // Called when the game starts or when spawned
 void ANetworkListener::BeginPlay()
 {
-    FIPv4Address IPAddress;
-    FIPv4Address::Parse(FString("0.0.0.0"), IPAddress);
-    FIPv4Endpoint Endpoint(IPAddress, (uint16)8080);
-    listenSocket = FTcpSocketBuilder(TEXT("TcpSocket")).AsReusable().BoundToEndpoint(Endpoint);
-    if (!listenSocket->Listen(1))
-        UE_LOG(LogTemp, Error, TEXT("Error listening"));
-
+    if (gameInstance->listenerSocket != nullptr) {
+        listenSocket = gameInstance->listenerSocket;
+    }
+    else {
+        FIPv4Address IPAddress;
+        FIPv4Address::Parse(FString("0.0.0.0"), IPAddress);
+        FIPv4Endpoint Endpoint(IPAddress, (uint16)8080);
+        listenSocket = FTcpSocketBuilder(TEXT("TcpSocket")).AsReusable().BoundToEndpoint(Endpoint);
+        if (!listenSocket->Listen(1))
+            UE_LOG(LogTemp, Error, TEXT("Error listening"));
+    }
     gameInstance = Cast<UFAroundGameInstance>(GetGameInstance());
     gameInstance->networkListener = this;
+    if (gameInstance->connectedSocket != nullptr) {
+        connectionSocket = gameInstance->connectedSocket;
+    }
     Super::BeginPlay();
 }
 
 void ANetworkListener::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
-    if (listenSocket)
-        listenSocket->Close();
-    if (connectionSocket) {
-        uint8 data = 255;
-        int32 sentData;
-        connectionSocket->Send(&data, 1, sentData);
-        connectionSocket->Close();
+    if (EndPlayReason == EEndPlayReason::EndPlayInEditor || EndPlayReason == EEndPlayReason::Quit) {
+        if (listenSocket)
+            listenSocket->Close();
+        if (connectionSocket) {
+            uint8 data = 255;
+            int32 sentData;
+            connectionSocket->Send(&data, 1, sentData);
+            connectionSocket->Close();
+        }
+    }
+    else {
+        if (listenSocket)
+            gameInstance->listenerSocket = listenSocket;
+        if (connectionSocket)
+            gameInstance->connectedSocket = connectionSocket;
     }
     Super::EndPlay(EndPlayReason);
 }
