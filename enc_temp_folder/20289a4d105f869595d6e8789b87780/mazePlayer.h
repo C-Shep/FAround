@@ -89,9 +89,6 @@ public:
 	UFUNCTION(Server,Reliable)
 	virtual void ServerTrigger(AActor * button);
 
-	UFUNCTION(Server, Reliable)
+	//UFUNCTION(Server, Reliable)
 	virtual void ServerKeypad(AActor* button,uint8 buttonKey);
-
-	UFUNCTION(NetMulticast, Reliable)
-	virtual void KeypadMulticast(AActor* button, uint8 buttonKey);
 };

@@ -42,9 +42,6 @@ void AUserKeypad::SubmitPassword_Implementation()
 void AUserKeypad::ButtonPressed(uint8 button) {
 	if (button == 11) {
 		SubmitPassword();
-		if (password.Num() == 4) {
-			password.Empty();
-		}
 	}
 	else if (button == 12) {
 		BackspacePressed();
@@ -68,6 +65,7 @@ void AUserKeypad::BackspacePressed() {
 int AUserKeypad::GetPasswordAtIndex(int index)
 {
 	if (password.Num() > index) {
+		GEngine->AddOnScreenDebugMessage(-1, 0.1f, FColor::Yellow, FString::Printf(TEXT("%lld"), int(password[index])));
 		return int(password[index]);
 	}
 

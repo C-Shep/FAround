@@ -225,12 +225,8 @@ void AMazePlayer::ServerTrigger_Implementation(AActor* button)
 	Cast<APuzzleTrigger>(button)->Trigger();
 }
 
-void AMazePlayer::ServerKeypad_Implementation(AActor* button, uint8 buttonKey)
+void AMazePlayer::ServerKeypad(AActor* button, uint8 buttonKey)
 {
-	KeypadMulticast(button, buttonKey);
-
-}
-
-void AMazePlayer::KeypadMulticast_Implementation(AActor* button, uint8 buttonKey) {
 	Cast<AUserKeypad>(button)->ButtonPressed(buttonKey);
+
 }
