@@ -74,6 +74,7 @@ void ANetworkListener::ListenForConnections() {
                 ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM)->DestroySocket(connectionSocket);
             }
             connectionSocket = listenSocket->Accept(*remoteAddress, TEXT("Listener socket received connection"));
+            gameInstance->connectedSocket = connectionSocket;
             UE_LOG(LogTemp, Warning, TEXT("Connection received"));
             if (connectionSocket != NULL) {
                 remoteAddressForConnection = FIPv4Endpoint(remoteAddress);
