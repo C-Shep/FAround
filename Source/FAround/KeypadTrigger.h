@@ -13,6 +13,7 @@ UCLASS()
 class FAROUND_API AKeypadTrigger : public APuzzleTrigger
 {
 	GENERATED_BODY()
+
 public:
 	AKeypadTrigger();
 
@@ -25,7 +26,7 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	//Init vars
-	UPROPERTY(EditAnywhere,BlueprintReadWrite)
+	UPROPERTY(EditAnywhere,BlueprintReadWrite,Replicated)
 	TArray<uint8> password;
 
 	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -35,5 +36,19 @@ public:
 	int passLength;
 
 	void RecieveBroadcast(TArray<uint8> enteredPassword);
+
+	UFUNCTION(Server,Reliable)
+	virtual void RecieveBroadcastServer(uint8 one, uint8 two, uint8 three, uint8 four);
+
+	UFUNCTION(NetMulticast, Reliable)
+	virtual void RecieveBroadcastGame(uint8 one, uint8 two, uint8 three, uint8 four);
+
+	virtual void GetLifetimeReplicatedProps(TArray< FLifetimeProperty >& OutLifetimeProps) const;
 	
+	UFUNCTION(Server, Reliable)
+	virtual void GeneratePasswordServer();
+
+	UFUNCTION(NetMulticast, Reliable)
+	virtual void PassPassword(uint8 one, uint8 two, uint8 three, uint8 four);
+
 };
