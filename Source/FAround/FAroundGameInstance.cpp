@@ -26,9 +26,11 @@ void UFAroundGameInstance::FindAllButtons(UWorld * world)
 
 }
 
-void UFAroundGameInstance::TriggerButton(int index) 
+void UFAroundGameInstance::TriggerButton(int index)
 {
-	buttons[index]->Trigger();
+	if (index < buttons.Num()) {
+		buttons[index]->Trigger();
+	}
 }
 
 void UFAroundGameInstance::BroadcastCodeServer_Implementation(uint8 one, uint8 two, uint8 three, uint8 four) {
