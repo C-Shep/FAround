@@ -26,26 +26,48 @@ void AUserKeypad::Tick(float DeltaTime)
 
 }
 
-void AUserKeypad::SubmitPassword()
+void AUserKeypad::SubmitPasswordMulticast_Implementation()
 {
 	if (password.Num() == 4) {
-		Cast<UFAroundGameInstance>(GetGameInstance())->BroadcastCode(password);
+		Cast<UFAroundGameInstance>(GetGameInstance())->BroadcastCodeServer(password[0], password[1], password[2], password[3]);
 		password.Empty();
 	}
 }
 
-void AUserKeypad::ButtonPressed(uint8 button)
+void AUserKeypad::SubmitPassword_Implementation()
 {
-	if (password.Num() < 4) {
+	SubmitPasswordMulticast();
+}
+
+void AUserKeypad::ButtonPressed(uint8 button) {
+	if (button == 11) {
+		SubmitPassword();
+	}
+	else if (button == 12) {
+		BackspacePressed();
+	}
+	else if (password.Num() < 4) {
 		password.Add(button);
+		passwordBLUEPRINT.Empty();
+		for (int i = 0; i < password.Num(); i++) {
+			passwordBLUEPRINT.Add(int(password[i]));
+		}
 	}
 }
 
-void AUserKeypad::BackspacePressed()
-{
-	if (password.Num() < 0){
+void AUserKeypad::BackspacePressed() {
+	if (password.Num() > 0) {
 
 		password.RemoveAt(password.Num() - 1);
 	}
 }
 
+int AUserKeypad::GetPasswordAtIndex(int index)
+{
+	if (password.Num() > index) {
+		GEngine->AddOnScreenDebugMessage(-1, 0.1f, FColor::Yellow, FString::Printf(TEXT("%lld"), int(password[index])));
+		return int(password[index]);
+	}
+
+	return 0;
+}

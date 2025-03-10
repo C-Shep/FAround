@@ -33,7 +33,13 @@ public:
 
 	void TriggerButton(int index);
 
-	void BroadcastCode(TArray<uint8> enteredPassword);
+	UFUNCTION(Server, Reliable)
+	virtual void BroadcastCodeServer(uint8 one, uint8 two, uint8 three, uint8 four);
+
+	UFUNCTION(NetMulticast, Reliable)
+	virtual void BroadcastCodeGame(uint8 one, uint8 two, uint8 three, uint8 four);
+
+	virtual void BroadcastCode(const TArray<uint8> enteredPassword);
 
 	void SendDataToDS(uint8 data);
 

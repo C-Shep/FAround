@@ -6,6 +6,7 @@
 #include "PuzzleElement.h"
 #include "Kismet/GameplayStatics.h"
 #include "Logging/LogMacros.h"
+#include "UserKeypad.h"
 #include "FAroundGameInstance.h"
 
 // Sets default values
@@ -120,40 +121,40 @@ void AMazePlayer::Interact(const FInputActionValue& Value)
 
 		if (hitActor->ActorHasTag("UserKeypad")) {
 			if (hit.GetComponent()->ComponentHasTag("0")) {
-
+				ServerKeypad(hitActor, 0);
 			}
 			if (hit.GetComponent()->ComponentHasTag("1")) {
-
+				ServerKeypad(hitActor, 1);
 			}
 			if (hit.GetComponent()->ComponentHasTag("2")) {
-
+				ServerKeypad(hitActor, 2);
 			}
 			if (hit.GetComponent()->ComponentHasTag("3")) {
-
+				ServerKeypad(hitActor, 3);
 			}
 			if (hit.GetComponent()->ComponentHasTag("4")) {
-
+				ServerKeypad(hitActor, 4);
 			}
 			if (hit.GetComponent()->ComponentHasTag("5")) {
-
+				ServerKeypad(hitActor, 5);
 			}
 			if (hit.GetComponent()->ComponentHasTag("6")) {
-
+				ServerKeypad(hitActor, 6);
 			}
 			if (hit.GetComponent()->ComponentHasTag("7")) {
-
+				ServerKeypad(hitActor, 7);
 			}
 			if (hit.GetComponent()->ComponentHasTag("8")) {
-
+				ServerKeypad(hitActor, 8);
 			}
 			if (hit.GetComponent()->ComponentHasTag("9")) {
-
+				ServerKeypad(hitActor, 9);
 			}
-			if (hit.GetComponent()->ComponentHasTag("submit")) {
-
+			if (hit.GetComponent()->ComponentHasTag("enter")) {
+				ServerKeypad(hitActor, 11);
 			}
 			if (hit.GetComponent()->ComponentHasTag("backspace")) {
-
+				ServerKeypad(hitActor, 12);
 			}
 		}
 	}
@@ -221,7 +222,8 @@ void AMazePlayer::ServerTrigger_Implementation(AActor* button)
 	Cast<APuzzleTrigger>(button)->Trigger();
 }
 
-void AMazePlayer::ServerKeypad_Implementation(AActor* button)
+void AMazePlayer::ServerKeypad_Implementation(AActor* button, uint8 buttonKey)
 {
-	Cast<APuzzleTrigger>(button)->Trigger();
+	Cast<AUserKeypad>(button)->ButtonPressed(buttonKey);
+
 }

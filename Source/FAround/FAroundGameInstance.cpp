@@ -31,7 +31,32 @@ void UFAroundGameInstance::TriggerButton(int index)
 	buttons[index]->Trigger();
 }
 
-void UFAroundGameInstance::BroadcastCode(TArray<uint8> enteredPassword)
+void UFAroundGameInstance::BroadcastCodeServer_Implementation(uint8 one, uint8 two, uint8 three, uint8 four) {
+
+
+	BroadcastCodeGame(one,two,three,four);
+}
+
+void UFAroundGameInstance::BroadcastCodeGame_Implementation(uint8 one, uint8 two, uint8 three, uint8 four)
+{
+
+
+	TArray<uint8> enteredPassword{ one,two,three,four };
+
+	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("%lld"),one));
+	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("%lld"), two));
+	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("%lld"), three));
+	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("%lld"), four));
+	for (auto keypad : keypadItems) {
+
+		
+
+		keypad->RecieveBroadcastServer(one,two,three,four);
+
+	}
+}
+
+void UFAroundGameInstance::BroadcastCode(const TArray<uint8> enteredPassword)
 {
 	for (auto keypad : keypadItems) {
 		keypad->RecieveBroadcast(enteredPassword);

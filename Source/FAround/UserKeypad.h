@@ -26,8 +26,23 @@ public:
 	UPROPERTY(EditAnywhere,BlueprintReadWrite)
 	TArray<uint8> password;
 
-	void SubmitPassword();
-	void ButtonPressed(uint8 button);
-	void BackspacePressed();
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TArray<int> passwordBLUEPRINT;
+
+
+	UFUNCTION(NetMulticast, Reliable)
+	virtual void SubmitPasswordMulticast();
+
+	UFUNCTION(Server, Reliable)
+	virtual void SubmitPassword();
+
+	//UFUNCTION(Client, Reliable)
+	virtual void ButtonPressed(uint8 button);
+
+	//UFUNCTION(Server, Reliable)
+	virtual void BackspacePressed();
+
+	UFUNCTION(BlueprintCallable)
+	int GetPasswordAtIndex(int index);
 
 };
