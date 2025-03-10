@@ -41,12 +41,15 @@ public:
 
 	virtual void BroadcastCode(const TArray<uint8> enteredPassword);
 
+	UFUNCTION(BlueprintCallable)
 	void SendDataToDS(uint8 data);
 
 	UPROPERTY(EditAnywhere,BlueprintReadWrite)
 	bool isServer = false;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool isPlayer2Connected = false;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool isHostingDS = false;
 	UFUNCTION(BlueprintCallable)
 	void checkForConnection(UWorld* world);
 	ANetworkListener* networkListener;

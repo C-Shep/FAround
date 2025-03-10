@@ -175,6 +175,9 @@ void AMazePlayer::TakeDamage(float damage)
 		bleedOut = true;
 	}
 	uint8 hp = playerHealth;
+	if (hp < 0) {
+		hp = 0;
+	}
 	Cast<UFAroundGameInstance>(GetGameInstance())->SendDataToDS(hp);
 }
 
@@ -192,7 +195,7 @@ void AMazePlayer::Tick(float DeltaTime)
 		}
 		else {
 			Cast<UFAroundGameInstance>(GetGameInstance())->SendDataToDS(254);
-			UGameplayStatics::OpenLevel(this, FName(*GetWorld()->GetName()), false);
+			UGameplayStatics::OpenLevel(this, FName(*GetWorld()->GetName()), false,FString("listen"));
 		}
 	}
 	else {
