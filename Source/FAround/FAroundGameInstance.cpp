@@ -9,6 +9,7 @@
 void UFAroundGameInstance::FindAllButtons(UWorld * world)
 {
 	buttons.Empty();
+	keypadItems.Empty();
 	//TSubclassOf<APuzzleTrigger> classToFind;
 	TArray<AActor*> foundActors;
 	UGameplayStatics::GetAllActorsOfClass(world, APuzzleTrigger::StaticClass(), foundActors);
