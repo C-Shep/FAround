@@ -76,3 +76,16 @@ void UFAroundGameInstance::checkForConnection(UWorld* world) {
 		isPlayer2Connected = false;
 	}
 }
+
+void UFAroundGameInstance::closeDSSockets() {
+	if (listenerSocket != nullptr) {
+		listenerSocket->Close();
+		ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM)->DestroySocket(listenerSocket);
+		listenerSocket = nullptr;
+	}
+	if (connectedSocket != nullptr) {
+		connectedSocket->Close();
+		ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM)->DestroySocket(connectedSocket);
+		connectedSocket = nullptr;
+	}
+}
