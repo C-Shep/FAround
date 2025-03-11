@@ -52,6 +52,8 @@ public:
 	bool isHostingDS = false;
 	UFUNCTION(BlueprintCallable)
 	void checkForConnection(UWorld* world);
+	UFUNCTION(BlueprintCallable)
+	void closeDSSockets();
 	ANetworkListener* networkListener;
 	FSocket* connectedSocket;
 	FSocket* listenerSocket;

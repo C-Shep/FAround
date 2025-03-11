@@ -69,7 +69,8 @@ void APuzzleTrigger::DeactivateLinkedElements()
 {
 	triggerState = false;
 	for (int i = 0; i < triggeredElements.Num(); i++) {
-		triggeredElements[i]->DeactivateElement();
+		if (triggeredElements[i] != nullptr)
+			triggeredElements[i]->DeactivateElement();
 	}
 
 }
