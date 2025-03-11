@@ -161,7 +161,7 @@ void AMazePlayer::Interact(const FInputActionValue& Value)
 }
 
 //Player take damage function
-void AMazePlayer::TakeDamage(float damage)
+void AMazePlayer::TakeDamagePlayer(float damage)
 {
 	//reduce health by damage
 	playerHealth -= damage;

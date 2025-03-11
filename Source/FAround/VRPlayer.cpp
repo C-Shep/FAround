@@ -67,7 +67,7 @@ void AVRPlayer::JumpFunc(const FInputActionValue& Value)
 }
 
 //Player take damage function
-void AVRPlayer::TakeDamage(float damage)
+void AVRPlayer::TakeDamagePlayer(float damage)
 {
 	//reduce health by damage
 	playerHealth -= damage;

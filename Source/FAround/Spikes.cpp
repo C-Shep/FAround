@@ -62,7 +62,7 @@ void ASpikes::Tick(float DeltaTime)
 			damageTimer -= damageSpeed * DeltaTime;
 		}
 		else {
-			Cast<AMazePlayer>(player)->TakeDamage(damage);
+			Cast<AMazePlayer>(player)->TakeDamagePlayer(damage);
 			damageTimer = damageTimerMax;
 		}
 	}

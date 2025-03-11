@@ -75,7 +75,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float damageProcessFadeSpeed;
 
-	void TakeDamage(const float damage);
+	void TakeDamagePlayer(const float damage);
 
 	//Death
 	float restartTimer;
