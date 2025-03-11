@@ -57,4 +57,6 @@ public:
 	ANetworkListener* networkListener;
 	FSocket* connectedSocket;
 	FSocket* listenerSocket;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FString enteredIP = "";
 };
